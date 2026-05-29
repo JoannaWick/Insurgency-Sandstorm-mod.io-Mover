@@ -9,7 +9,7 @@ This script can be used to repeatedly move the mod.io directory to any
 location. If you moved it to D:\MySandstorm\WheretheModsStay\ and decided to
 move it to a new drive you just added like F:\ you can do so.  You can place it
 on the root of a drive or place it directories deep (just not too many 
-directories deep).
+directories deep). After moving the mod files will not need to be re-downloaded.
 
 This script will also move mod files for every game that uses 'RootLocalStoragePath'
 in the globalsettings.json file for mod.io. The script will update the metadata
