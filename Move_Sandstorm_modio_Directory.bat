@@ -88,14 +88,6 @@ if /i "%confirm%"=="Y" (
 
 set "NEW_PATH=!dest_dir:\=/!"
 
-:: Check if the file exists
-
-if not exist "%JSON_FILE%" (
-    echo [ERROR] globalsettings.json not found at %JSON_FILE%
-    pause
-    exit /b
-)
-
 :: Create a temporary file to rewrite the JSON
 
 set "TEMP_FILE=%TEMP%\globalsettings_temp.json"
