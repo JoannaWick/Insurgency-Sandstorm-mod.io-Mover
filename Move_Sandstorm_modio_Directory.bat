@@ -91,7 +91,7 @@ set "NEW_PATH=!dest_dir:\=/!"
 :: Check if the file exists
 
 if not exist "%JSON_FILE%" (
-    echo [ERROR] globalsettings.json not found at %SETTINGS_FILE%
+    echo [ERROR] globalsettings.json not found at %JSON_FILE%
     pause
     exit /b
 )
