@@ -23,13 +23,13 @@ Any game that is installed after the mod.io directory has been moved will use th
 new location for their mods.
 
 Sandstorm uses a state.json file that contains all information from graphic links
-to descriptions to direct paths to individual mod directory location to etc. about 
+to descriptions to direct paths to individual mod directory locations to etc. about 
 mods that have been downloaded. Information like mod location must be updated.
 
 IE: {"Mods":[{"ID":98145,"NeverRetryCategory":0,"NeverRetryCode":0,"PathOnDisk":"F:\\mod.io\\254\\mods\\98145",
 
 This location information is repeated for every mod you have subscribed.  This script
-will alter those cations for you.
+will alter those locations for you.
 
 The script is pretty simple and easy to use and I hope everyone enjoys it.
 
