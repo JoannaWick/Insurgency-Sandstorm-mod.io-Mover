@@ -39,6 +39,7 @@ Change Log
 ==========
 
 0.2 (2026-06-01)
+
     1. Added check to convert Windows Path in globalsettings.json to json path
     2. Added conversion of escaped backslash (\\) pathing to json forward slash (/).
     3. Added test to see if destination directory is read/writable.
