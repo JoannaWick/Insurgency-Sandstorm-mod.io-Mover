@@ -74,6 +74,12 @@ if not defined dest_dir (
     exit /b
 )
 
+set "lastchar=%dest_dir:~-1%"
+
+if not "%lastchar%"=="\" (
+    set "dest_dir=%dest_dir%\"
+)
+
 echo.
 echo Destination: %dest_dir%
 echo.
