@@ -40,7 +40,7 @@ Change Log
 
 0.2.1 (2026-06-01)
 
-    1. Missing forward slash (/) at the end of a directory path when testing if you 
+    1. Missing backslash (\) at the end of a directory path when testing if you 
        could write to directory instead of a drive
     
 0.2 (2026-06-01)
