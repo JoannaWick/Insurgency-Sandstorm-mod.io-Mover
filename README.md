@@ -38,6 +38,11 @@ Joanna Wick
 Change Log
 ==========
 
+0.2.1 (2026-06-01)
+
+    1. Missing forward slash (/) at the end of a directory path when testing if you 
+       could write to directory instead of a drive
+    
 0.2 (2026-06-01)
 
     1. Added check to convert Windows Path in globalsettings.json to json path
