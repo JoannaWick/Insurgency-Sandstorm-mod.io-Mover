@@ -34,3 +34,14 @@ will alter those locations for you.
 The script is pretty simple and easy to use and I hope everyone enjoys it.
 
 Joanna Wick
+
+Change Log
+==========
+
+0.2 (2026-06-01)
+    1. Added check to convert Windows Path in globalsettings.json to json path
+    2. Added conversion of escaped backslash (\\) pathing to json forward slash (/).
+    3. Added test to see if destination directory is read/writable.
+       If not writable it will ask for a new destination.
+
+0.1 (2026-05-29) Initial Release
