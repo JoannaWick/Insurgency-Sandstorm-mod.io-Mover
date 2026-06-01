@@ -15,7 +15,24 @@ if not exist "%JSON_FILE%" (
     exit /b
 )
 
-:: Extract RootLocalStoragePath using PowerShell and set it to a Batch variable
+:: Make sure json directory path variable is in json format
+:: Create a temporary file to hold the modified content
+
+SET "TEMP_FILE=%TEMP%\settings_temp.json"
+
+:: Read the file line by line and replace \ with /
+
+(for /f "usebackq tokens=* delims=" %%a in ("%JSON_FILE%") do (
+    SET "line=%%a"
+    SET "line=!line:\=/!"
+    echo(!line!
+)) > "%TEMP_FILE%"
+
+:: Replace the original file with the modified temporary file
+
+move /y "%TEMP_FILE%" "%JSON_FILE%" >nul
+
+:: Extract RootLocalStoragePath and set it to a Batch variable
 
 for /f "delims=" %%i in ('powershell -NoProfile -Command "(Get-Content '%JSON_FILE%' | ConvertFrom-Json).RootLocalStoragePath"') do (
     set "RootLocalStoragePath=%%i"
@@ -27,6 +44,7 @@ echo.
 
 if defined RootLocalStoragePath (
     echo The RootLocalStoragePath is: %RootLocalStoragePath%
+    set "RootLocalStoragePath=%RootLocalStoragePath:\\=\%"
 ) else (
     echo Error: Could not find RootLocalStoragePath in the JSON file.
     pause
@@ -38,23 +56,67 @@ echo.
 :: Change / in directory path to Windows \
 
 set "source_dir=!RootLocalStoragePath:/=\!"
+echo The source_dir is: %source_dir%
+echo.
 
 :: Select Destination Folder using Windows GUI selector
+
+:GetDestination
 
 echo Selecting destination folder...
 set "dest_cmd=(New-Object -ComObject Shell.Application).BrowseForFolder(0, 'Select the DESTINATION folder', 0, 0).Self.Path"
 for /f "usebackq delims=" %%I in (`powershell -Command "%dest_cmd%"`) do set "dest_dir=%%I"
 
 if not defined dest_dir (
+    echo.
     echo No destination folder selected. Exiting.
     pause
     exit /b
+)
+
+echo.
+echo Destination: %dest_dir%
+echo.
+
+:: Test if Base Directory is Writable
+
+set "TEMP_TEST_FILE=%dest_dir%.write_test.tmp"
+
+copy /y NUL "%TEMP_TEST_FILE%" >nul 2>&1
+
+if errorlevel 1 (
+echo.
+    echo [FAILURE] The directory is NOT writable: "%dest_dir%"
+    echo.
+    goto GetDestination
+) else (
+    echo [SUCCESS] The directory IS writable "%TEMP_TEST_FILE%" .
+
+    del /f /q "%TEMP_TEST_FILE%" 
 )
 
 :: Clean up destination Directory path
 
 set "dest_dir=%dest_dir%\mod.io\"
 set "dest_dir=%dest_dir:\\=\%"
+
+:: Create Target Directory
+
+echo.
+echo Creating target directory: "%dest_dir%"
+
+if not exist "%dest_dir%" mkdir "%dest_dir%" >nul 2>&1
+
+if errorlevel 1 (
+    echo.
+    echo [ERROR] Failed to create target directory "%dest_dir%".
+    echo.
+    goto GetDestination
+) else (
+    echo.
+    echo [SUCCESS] The Target Directory IS created "%dest_dir%" .
+    rmdir /s /q "%dest_dir%" >nul 2>&1
+)
 
 :: Show Disclaimer then Confirm Moving of Files to new location
 
