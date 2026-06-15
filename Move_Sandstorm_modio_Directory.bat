@@ -2,6 +2,12 @@
 setlocal enabledelayedexpansion
 title Move Sandstorm mod.io Directory
 
+echo.
+echo ==============================================
+echo         Move mod.io Directory Wizard        
+echo ==============================================
+echo.
+
 :: Make sure globalsettings.json exists
 
 :: Define path to mod.io globalsettings.json
@@ -127,6 +133,11 @@ if errorlevel 1 (
 :: Show Disclaimer then Confirm Moving of Files to new location
 
 echo.
+echo ==============================================
+echo        WARNING! Please Read WARNING!  
+echo ==============================================
+echo.
+
 echo Source:      %source_dir%
 echo Destination: %dest_dir%
 echo.
@@ -136,6 +147,10 @@ echo only for Sandstorm.  If any other games use metadata that points to the old
 echo it will not be updated.  If Sandstorm is the only game you have installed that uses
 echo Mod.io then go ahead and use this script.  Any game that is installed after the mods
 echo have been moved will use the new location for their mods.
+echo.
+echo DO NOT ABORT THIS SCRIPT AFTER ENTERING Y!!!
+echo Stopping before completion can corrupt your mod files requiring you to delete your
+echo mod.io directories and re-downloading all mods.
 echo.
 
 set /p "confirm=Are you sure you want to move all files? (Y/N): "
@@ -196,7 +211,9 @@ powershell -Command " (Get-Content -Path '%filepath%') -replace [regex]::Escape(
 
 echo Metadata update inside %filepath% complete!
 echo.
-echo Moving/Updating Sandstorm mod.io files is complete.
+echo ==============================================
+echo   Moving/Updating mod.io files is complete.        
+echo ==============================================
 echo.
 
 pause
