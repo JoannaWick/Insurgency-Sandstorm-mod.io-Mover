@@ -39,8 +39,9 @@ Change Log
 ==========
 
 0.2.2 (2026-06-12)
+
     1. Made the message and interface look better and cleaned a couple of code issues
-    
+
 0.2.1 (2026-06-01)
 
     1. Missing backslash (\) at the end of a directory path when testing if you 
